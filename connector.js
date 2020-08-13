@@ -139,7 +139,7 @@ class ServiceNowConnector {
       uri = this.constructUri(callOptions.query);
     else
       uri = this.constructUri();
-
+    console.log(uri);
     const requestOptions = {
         method: callOptions.method,
         auth: {
@@ -149,6 +149,7 @@ class ServiceNowConnector {
         baseUrl: this.options.url,
         uri: uri,
     };
+    console.log(requestOptions);
     request(requestOptions, (error, response, body) => {
       this.processRequestResults(error, response, body, (processedResults, processedError) => callback(processedResults, processedError));
     });
