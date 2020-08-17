@@ -192,7 +192,28 @@ healthcheck(callback) {
      */
      let data = null;
      let error = null;
-     this.connector.get((data, error) => callback(data, error));
+     this.connector.get((data, error) => {
+         let cm_tickets = [];
+         if (data.body){
+             let results = JSON.parse(data.body).result;
+             let result = null;
+             for (result in results) {
+                 let cm_ticket = {};
+                 cm_ticket.change_ticket_number = result.number;
+                 cm_ticket.active = result.active;
+                 cm_ticket.priority = result.priority;
+                 cm_ticket.description = result.description;
+                 cm_ticket.work_start = result.work_start;
+                 cm_ticket.work_end = result.work_end;
+                 cm_ticket.change_ticket_key = result.sys_id;
+                 cm_tickets.push(cm_ticket);
+             }
+             return(callback(cm_tickets, error));
+             
+         } else {
+             return(callback(data,error));
+         }
+  });
   }
 
   /**
@@ -213,7 +234,21 @@ healthcheck(callback) {
      */
      let data = null;
      let error = null;
-     this.connector.post((data, error) => callback(data, error));
+     this.connector.post((data, error) => {
+         if (data.body){
+             let cm_ticket = {};
+             cm_ticket.change_ticket_number = result.number;
+             cm_ticket.active = result.active;
+             cm_ticket.priority = result.priority;
+             cm_ticket.description = result.description;
+             cm_ticket.work_start = result.work_start;
+             cm_ticket.work_end = result.work_end;
+             cm_ticket.change_ticket_key = result.sys_id;
+             return(callback(cm_ticket, error));
+         } else {
+             return(callback(data, error));
+         }
+    });
 
   }
 }
