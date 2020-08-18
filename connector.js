@@ -149,6 +149,7 @@ class ServiceNowConnector {
         baseUrl: this.options.url,
         uri: uri,
     };
+    log.info(requestOptions);
     console.log(requestOptions);
     request(requestOptions, (error, response, body) => {
       this.processRequestResults(error, response, body, (processedResults, processedError) => callback(processedResults, processedError));

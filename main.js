@@ -117,7 +117,7 @@ healthcheck(callback) {
         * for the callback's errorMessage parameter.
         */
         this.emitOffline();
-        log.error('ServiceNow adapter instance: ${this.id} is offline:\n ${JSON.stringify(error)}');
+        log.error(`ServiceNow adapter instance: ${this.id} is offline:\n ${JSON.stringify(error)}`);
         CallbackError = error;
      } else {
        /**
@@ -131,7 +131,7 @@ healthcheck(callback) {
         * responseData parameter.
         */
         this.emitOnline();
-        log.debug("ServiceNow adapter instance: ${this.id} is online.")
+        log.debug(`ServiceNow adapter instance: ${this.id} is online.`)
         callbackData = result;
      }
  });
@@ -194,10 +194,12 @@ healthcheck(callback) {
      let error = null;
      this.connector.get((data, error) => {
          let cm_tickets = [];
-         if (data.body){
-             let results = JSON.parse(data.body).result;
+         if (data.body) {
+             let results = data.body;
+             log.info(`RESULTS:\n ${results}`);
              let result = null;
-             for (result in results) {
+             for (result in results.result) {
+                 log.info(`RESULT:\n ${String(result)}`);
                  let cm_ticket = {};
                  cm_ticket.change_ticket_number = result.number;
                  cm_ticket.active = result.active;
