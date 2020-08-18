@@ -125,7 +125,7 @@ class ServiceNowAdapter extends EventEmitter {
                  */
                 this.emitOffline();
                 log.error(`ServiceNow adapter instance: ${this.id} is offline:\n ${JSON.stringify(error)}`);
-                CallbackError = error;
+                callbackError = error;
             } else {
                 /**
                  * Write this block.
@@ -209,7 +209,7 @@ class ServiceNowAdapter extends EventEmitter {
      * @method getRecord
      * @summary Get ServiceNow Record
      * @description Retrieves a record from ServiceNow.
-     *
+     * 
      * @param {ServiceNowAdapter~requestCallback} callback - The callback that
      *   handles the response.
      */
