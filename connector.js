@@ -2,7 +2,7 @@ const request = require('request');
 
 const validResponseRegex = /(2\d\d)/;
 
- 
+
 /**
  * The ServiceNowConnector class.
  *
@@ -41,7 +41,7 @@ class ServiceNowConnector {
    * @param {error} [errorMessage] - If an error is caught, return error
    *   message in optional second argument to callback function.
    */
-   
+
   /**
    * @memberof ServiceNowConnector
    * @method constructUri
@@ -78,7 +78,7 @@ class ServiceNowConnector {
     && response.body.includes('<html>')
     && response.statusCode === 200;
   }
-  
+
   /**
    * @memberof ServiceNowConnector
    * @method processRequestResults
@@ -99,7 +99,7 @@ class ServiceNowConnector {
 
      let callbackData = null;
      let callbackError = null;
-   
+
      if (error) {
          console.error('Error present.');
          callbackError = error;
@@ -114,7 +114,7 @@ class ServiceNowConnector {
      }
      return callback(callbackData, callbackError);
   }
-  
+
   /**
    * @memberof ServiceNowConnector
    * @method sendRequest
@@ -149,13 +149,12 @@ class ServiceNowConnector {
         baseUrl: this.options.url,
         uri: uri,
     };
-    log.info(requestOptions);
     console.log(requestOptions);
     request(requestOptions, (error, response, body) => {
       this.processRequestResults(error, response, body, (processedResults, processedError) => callback(processedResults, processedError));
     });
   }
-  
+
   /**
    * @memberof ServiceNowConnector
    * @method get
